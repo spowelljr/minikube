@@ -3,16 +3,16 @@ module k8s.io/minikube
 go 1.16
 
 require (
-	cloud.google.com/go/storage v1.13.0
+	cloud.google.com/go/storage v1.15.0
 	contrib.go.opencensus.io/exporter/stackdriver v0.12.1
-	github.com/Azure/azure-sdk-for-go v43.0.0+incompatible
+	github.com/Azure/azure-sdk-for-go v43.3.0+incompatible
 	github.com/Delta456/box-cli-maker/v2 v2.2.1
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v0.16.0
 	github.com/Microsoft/hcsshim v0.8.15 // indirect
 	github.com/Parallels/docker-machine-parallels/v2 v2.0.1
 	github.com/VividCortex/godaemon v0.0.0-20201030160542-15e3f4925a21
 	github.com/blang/semver v3.5.1+incompatible
-	github.com/briandowns/spinner v1.11.1
+	github.com/briandowns/spinner v1.12.0
 	github.com/c4milo/gotoolkit v0.0.0-20170318115440-bcc06269efa9 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/cenkalti/backoff/v4 v4.1.0
@@ -34,7 +34,7 @@ require (
 	github.com/google/slowjam v0.0.0-20200530021616-df27e642fe7b
 	github.com/google/uuid v1.2.0
 	github.com/hashicorp/go-getter v1.5.2
-	github.com/hashicorp/go-retryablehttp v0.6.8
+	github.com/hashicorp/go-retryablehttp v0.7.0
 	github.com/hectane/go-acl v0.0.0-20190604041725-da78bae5fc95 // indirect
 	github.com/hooklift/assert v0.0.0-20170704181755-9d1defd6d214 // indirect
 	github.com/hooklift/iso9660 v0.0.0-20170318115843-1cf07e5970d8
