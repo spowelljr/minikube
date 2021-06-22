@@ -76,9 +76,9 @@ require (
 	github.com/xeipuuv/gojsonschema v0.0.0-20180618132009-1d523034197f
 	github.com/zchee/go-vmnet v0.0.0-20161021174912-97ebf9174097
 	go.opencensus.io v0.23.0
-	go.opentelemetry.io/otel v0.17.0
+	go.opentelemetry.io/otel v0.20.0
 	go.opentelemetry.io/otel/sdk v0.16.0
-	go.opentelemetry.io/otel/trace v0.17.0
+	go.opentelemetry.io/otel/trace v0.20.0
 	golang.org/x/build v0.0.0-20190927031335-2835ba2e683f
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
 	golang.org/x/exp v0.0.0-20210220032938-85be41e4509f
