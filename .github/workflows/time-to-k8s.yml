@@ -5,6 +5,7 @@ on:
 env:
   GOPROXY: https://proxy.golang.org
   GO_VERSION: 1.16.5
+  TAG: v4.4.3
 jobs:
   benchmark:
     runs-on: ubuntu-20.04
