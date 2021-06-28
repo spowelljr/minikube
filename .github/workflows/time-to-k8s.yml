@@ -1,13 +1,14 @@
 name: "time-to-k8s benchmark"
 on:
   release:
-    types: [released]
+    pull_request:
+      types: [opened]
 env:
   GOPROXY: https://proxy.golang.org
-  GO_VERSION: 1.16.4
+  GO_VERSION: 1.16.5
 jobs:
   benchmark:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - name: Checkout submodules
@@ -18,4 +19,4 @@ jobs:
           stable: true
     - name: Benchmark
       run: |
-          ./hack/benchmark/time-to-k8s/time-to-k8s.sh ${{ secrets.MINIKUBE_BOT_PAT }}
+          ./hack/benchmark/time-to-k8s/time-to-k8s.sh ${{ secrets.ACCESS_TOKEN }}

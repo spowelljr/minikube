@@ -17,7 +17,7 @@
 set -e
 
 install_kind() {
-	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.0/kind-linux-amd64
+	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-linux-amd64
 	chmod +x ./kind
 	sudo mv ./kind /usr/local
 }
@@ -27,8 +27,9 @@ install_k3d() {
 }
 
 install_minikube() {
-	make
-	sudo install ./out/minikube /usr/local/bin/minikube
+	curl -L -o minikube https://github.com/kubernetes/minikube/releases/download/v1.20.0/minikube-linux-amd64
+	chmod +x ./minikube
+	sudo install ./minikube /usr/local/bin/minikube
 }
 
 install_gh() {
@@ -51,7 +52,7 @@ run_benchmark() {
 	pwd
 	( cd ./hack/benchmark/time-to-k8s/time-to-k8s-repo/ &&
 		git submodule update --init &&
-		go run . --config local-kubernetes.yaml --iterations 5 --output output.csv )
+		go run . --config local-kubernetes.yaml --iterations 10 --output output.csv )
 }
 
 generate_chart() {
@@ -68,7 +69,7 @@ commit_changes() {
 }
 
 create_pr() {
-	git remote add minikube-bot https://minikube-bot:"$2"@github.com/minikube-bot/minikube.git
+	git remote add minikube-bot https://spowelljr:"$2"@github.com/spowelljr/minikube.git
 	git push -u minikube-bot addTimeToK8s"$1"
 	gh pr create --repo kubernetes/minikube --base master --title "Add time-to-k8s benchmark for $1" --body "Updating time-to-k8s benchmark as part of the release process"
 }
