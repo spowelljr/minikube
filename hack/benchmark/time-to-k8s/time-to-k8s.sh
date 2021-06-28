@@ -17,7 +17,7 @@
 set -e
 
 install_kind() {
-	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-linux-amd64
+	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
 	chmod +x ./kind
 	sudo mv ./kind /usr/local/bin/kind
 }
@@ -27,7 +27,7 @@ install_k3d() {
 }
 
 install_minikube() {
-	curl -L -o minikube https://github.com/kubernetes/minikube/releases/download/v1.20.0/minikube-linux-amd64
+	curl -L -o minikube https://github.com/kubernetes/minikube/releases/download/v1.21.0/minikube-linux-amd64
 	chmod +x ./minikube
 	sudo install ./minikube /usr/local/bin/minikube
 }
