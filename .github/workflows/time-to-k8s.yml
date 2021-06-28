@@ -1,8 +1,7 @@
 name: "time-to-k8s benchmark"
 on:
-  release:
-    pull_request:
-      types: [opened]
+  pull_request:
+    types: [opened]
 env:
   GOPROXY: https://proxy.golang.org
   GO_VERSION: 1.16.5
