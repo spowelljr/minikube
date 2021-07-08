@@ -1,5 +1,6 @@
 # Release Notes
 
+
 ## Version 1.22.0 - 2021-07-07
 
 Features:
