@@ -1,5 +1,6 @@
 name: "time-to-k8s benchmark"
 on:
+  workflow_dispatch
   pull_request:
     types: [opened]
 env:
