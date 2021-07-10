@@ -34,7 +34,7 @@ install_minikube() {
 run_benchmark() {
 	( cd ./hack/benchmark/time-to-k8s/time-to-k8s-repo/ &&
 		git submodule update --init &&
-		go run . --config local-kubernetes.yaml --iterations 10 --output output.csv )
+		go run . --config local-kubernetes.yaml --iterations 1 --output output.csv )
 }
 
 generate_chart() {
