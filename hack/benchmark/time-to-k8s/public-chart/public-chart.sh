@@ -40,15 +40,15 @@ cleanup() {
 	rm ./chart.png
 }
 
-gsutil -m cp "gs://minikube-time-to-k8s/$RUNTIME-runs.json" ./runs.json
+aws s3 cp "s3://time-to-k8s/$RUNTIME-runs.json" ./runs.json
 
 install_minikube
 
 run_benchmark
 generate_chart
 
-gsutil -m cp ./runs.json "gs://minikube-time-to-k8s/$RUNTIME-runs.json"
-gsutil -m cp ./runs.json "gs://minikube-time-to-k8s/$(date +'%Y-%m-%d')-$RUNTIME.json"
-gsutil -m cp ./chart.png "gs://minikube-time-to-k8s/$RUNTIME-chart.png"
+aws s3 cp ./runs.json "s3://time-to-k8s/$RUNTIME-runs.json"
+aws s3 cp ./runs.json "s3://time-to-k8s/$(date +'%Y-%m-%d')-$RUNTIME.json"
+aws s3 cp ./chart.png "s3://time-to-k8s/$RUNTIME-chart.png"
 
 cleanup
