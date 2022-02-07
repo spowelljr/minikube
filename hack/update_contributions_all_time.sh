@@ -51,5 +51,5 @@ trap cleanup_token EXIT
 
 echo "Generating leaderboard for 2016"
 printf -- "---\ntitle: \"2016\"\nlinkTitle: \"2016\"\nweight: -99992016\n---\n" > "$destination/2016.html"
-$DIR/pullsheet leaderboard --token-path "$TMP_TOKEN" --repos kubernetes/minikube --since 2016-01-01 --until 2016-12-31 --logtostderr=false --stderrthreshold=2 \
+$DIR/pullsheet leaderboard --token-path "$TMP_TOKEN" --repos kubernetes/minikube --since 2017-01-01 --until 2017-12-31 --logtostderr=false --stderrthreshold=2 \
     | sed -r -e "/Command\-line/,/pullsheet/d" >> "$destination/2016.html"
