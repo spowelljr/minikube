@@ -50,6 +50,6 @@ function cleanup_token() {
 trap cleanup_token EXIT
 
 echo "Generating leaderboard for 2016"
-printf -- "---\ntitle: \"2016\"\nlinkTitle: \"2016\"\nweight: -99992016\n---\n" > "$destination/2016.html"
-$DIR/pullsheet leaderboard --token-path "$TMP_TOKEN" --repos kubernetes/minikube --since 2017-01-01 --until 2017-12-31 --logtostderr=false --stderrthreshold=2 \
-    | sed -r -e "/Command\-line/,/pullsheet/d" >> "$destination/2016.html"
+printf -- "---\ntitle: \"2018\"\nlinkTitle: \"2018\"\nweight: -99992018\n---\n" > "$destination/2018.html"
+$DIR/pullsheet leaderboard --token-path "$TMP_TOKEN" --repos kubernetes/minikube --since 2018-01-01 --until 2018-12-31 --logtostderr=false --stderrthreshold=2 \
+    | sed -r -e "/Command\-line/,/pullsheet/d" >> "$destination/2018.html"
