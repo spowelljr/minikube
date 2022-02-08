@@ -35,7 +35,7 @@ jobs:
           commit-message: Update all-time leaderboard
           committer: minikube-bot <minikube-bot@google.com>
           author: minikube-bot <minikube-bot@google.com>
-          branch: leaderboard-2018
+          branch: leaderboard-2019
           base: master
           delete-branch: true
           title: 'Update leaderboard all-time'
