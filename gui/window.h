@@ -56,6 +56,8 @@
 
 #include <QSystemTrayIcon>
 #include <QFormLayout>
+#include <QStackedWidget>
+#include <QProcessEnvironment>
 
 #ifndef QT_NO_SYSTEMTRAYICON
 
@@ -79,7 +81,6 @@ QT_END_NAMESPACE
 
 #include "cluster.h"
 
-//! [0]
 class Window : public QDialog
 {
     Q_OBJECT
@@ -98,53 +99,101 @@ private slots:
     void dashboardClose();
 
 private:
-    void createActionGroupBox();
-    void createActions();
+    // Tray icon
     void createTrayIcon();
-    void startMinikube(QStringList args);
-    void startSelectedMinikube();
-    void stopMinikube();
-    void deleteMinikube();
-    ClusterList getClusters();
-    QString selectedCluster();
-    void setSelectedCluster(QString cluster);
-    QTableView *clusterListView;
+    void createActions();
+    void updateStatus(Cluster cluster);
+    void updateTrayActions(Cluster cluster);
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
+    QAction *minimizeAction;
+    QAction *restoreAction;
+    QAction *quitAction;
+    QAction *startAction;
+    QAction *pauseAction;
+    QAction *stopAction;
+    QAction *statusAction;
+    QSystemTrayIcon *trayIcon;
+    QMenu *trayIconMenu;
+    QIcon *trayIconIcon;
+
+    // Basic view
+    void createBasicView();
+    void toBasicView();
+    void updateBasicButtons(Cluster cluster);
+    QPushButton *basicStartButton;
+    QPushButton *basicStopButton;
+    QPushButton *basicPauseButton;
+    QPushButton *basicDeleteButton;
+    QPushButton *basicRefreshButton;
+    QPushButton *basicSSHButton;
+    QPushButton *basicDashboardButton;
+
+    // Advanced view
+    void createAdvancedView();
+    void toAdvancedView();
     void createClusterGroupBox();
+    void updateAdvancedButtons(Cluster cluster);
+    QPushButton *startButton;
+    QPushButton *stopButton;
+    QPushButton *pauseButton;
+    QPushButton *deleteButton;
+    QPushButton *refreshButton;
+    QPushButton *createButton;
+    QPushButton *sshButton;
+    QPushButton *dashboardButton;
     QGroupBox *clusterGroupBox;
+
+    // Cluster table
+    QString selectedClusterName();
+    void setSelectedClusterName(QString cluster);
+    Cluster selectedCluster();
+    void updateClusterList();
+    void updateClustersTable();
+    void showLoading();
+    void hideLoading();
     ClusterModel *clusterModel;
-    ClusterHash getClusterHash();
-    bool sendMinikubeCommand(QStringList cmds);
-    bool sendMinikubeCommand(QStringList cmds, QString &text);
-    void updateClusters();
+    QTableView *clusterListView;
+    ClusterList clusterList;
+    QLabel *loading;
+
+    // Create cluster
     void askCustom();
     void askName();
     QComboBox *driverComboBox;
     QComboBox *containerRuntimeComboBox;
+    QComboBox *k8sVersionComboBox;
+
+    // Commands
+    void startMinikube(QStringList args);
+    void startSelectedMinikube();
+    void stopMinikube();
+    void pauseMinikube();
+    void unpauseMinikube();
+    void pauseOrUnpauseMinikube();
+    void deleteMinikube();
+    bool sendMinikubeCommand(QStringList cmds);
+    bool sendMinikubeCommand(QStringList cmds, QString &text);
     void initMachine();
     void sshConsole();
     void dashboardBrowser();
-    void checkForMinikube();
+    Cluster createClusterObject(QJsonObject obj);
+    QProcess *dashboardProcess;
+    QProcessEnvironment env;
+
+    // Error messaging
     void outputFailedStart(QString text);
     QLabel *createLabel(QString title, QString text, QFormLayout *form, bool isLink);
-    QPushButton *sshButton;
-    QPushButton *dashboardButton;
-    QProcess *dashboardProcess;
 
-    QPushButton *startButton;
-    QPushButton *stopButton;
-    QPushButton *deleteButton;
-    QPushButton *refreshButton;
-    QPushButton *createButton;
-
-    QAction *minimizeAction;
-    QAction *restoreAction;
-    QAction *quitAction;
-
-    QSystemTrayIcon *trayIcon;
-    QMenu *trayIconMenu;
-    QIcon *trayIconIcon;
+    void checkForMinikube();
+    void restoreWindow();
+    QString getPauseLabel(bool isPaused);
+    QString getStartLabel(bool isRunning);
+    QProcessEnvironment setMacEnv();
+    QStackedWidget *stackedWidget;
+    bool isBasicView;
+    void delay();
+    int getCenter(int widgetSize, int parentSize);
 };
-//! [0]
 
 #endif // QT_NO_SYSTEMTRAYICON
 
