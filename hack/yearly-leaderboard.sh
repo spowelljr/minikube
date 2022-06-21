@@ -30,6 +30,7 @@ install_pullsheet() {
 }
 
 verify_gh_auth() {
+	gh auth status
 	gh auth status -t 2>&1 | sed -n -r 's/^.*Token: ([a-zA-Z0-9_]*)/\1/p' > "$TMP_TOKEN"
 	if [ ! -s "$TMP_TOKEN" ]; then
 		echo "Failed to acquire token from 'gh auth'. Ensure 'gh' is authenticated." 1>&2
