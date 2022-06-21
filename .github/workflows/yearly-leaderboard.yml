@@ -25,7 +25,7 @@ jobs:
       - name: Update Yearly Leaderboard
         id: yearly-leaderboard
         run: |
-          make update-yearly-leaderboard
+          hack/yearly-leaderboard.sh
         env:
           GITHUB_TOKEN: ${{ secrets.MINIKUBE_BOT_PAT }}
       - name: Create PR
