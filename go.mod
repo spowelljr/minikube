@@ -76,7 +76,7 @@ require (
 	golang.org/x/mod v0.6.0
 	golang.org/x/oauth2 v0.1.0
 	golang.org/x/sync v0.1.0
-	golang.org/x/sys v0.1.0
+	golang.org/x/sys v0.2.0
 	golang.org/x/term v0.1.0
 	golang.org/x/text v0.4.0
 	gonum.org/v1/plot v0.12.0
