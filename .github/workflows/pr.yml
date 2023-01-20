@@ -734,18 +734,18 @@ jobs:
         run: |
           curl -LO https://github.com/medyagh/gopogh/releases/download/v0.13.0/gopogh-darwin-amd64
           sudo install gopogh-darwin-amd64 /usr/local/bin/gopogh
+      - name: Setup QEMU
+        shell: bash
+        run: |
+          brew install qemu
       - name: Checkout socket_vmnet
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
         with:
           repository: lima-vm/socket_vmnet
       - name: Install socket_vmnet
         shell: bash
         run: |
-          sudo make PREFIX=/opt/socket_vmnet install
-      - name: Setup QEMU
-        shell: bash
-        run: |
-          brew install qemu
+          sudo make install
       - name: Install docker
         shell: bash
         run: |
