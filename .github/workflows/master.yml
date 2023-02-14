@@ -629,7 +629,6 @@ jobs:
       - name: Fix DHCP leases file
         shell: bash
         run: |
-          sudo /bin/launchctl kickstart -kp system/com.apple.bootpd
           sudo /bin/launchctl kickstart -kp system/com.apple.NetworkSharing
       - name: Install docker
         shell: bash
