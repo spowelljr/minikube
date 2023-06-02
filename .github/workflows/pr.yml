@@ -720,6 +720,11 @@ jobs:
       SHELL: "/bin/bash" # To prevent https://github.com/kubernetes/minikube/issues/6643
     runs-on: macos-12
     steps:
+      - name: Disable firewall
+        run: |
+          sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off
+          sudo /usr/libexec/ApplicationFirewall/socketfilterfw -k
+          sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblock /usr/libexec/bootpd
       - name: Install kubectl
         shell: bash
         run: |
@@ -761,10 +766,6 @@ jobs:
           hostname
           VBoxManage --version
           sysctl hw.physicalcpu hw.logicalcpu
-      - name: Disable firewall
-        run: |
-          sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off
-          sudo /usr/libexec/ApplicationFirewall/socketfilterfw -k
       - name: Download Binaries
         uses: actions/download-artifact@9782bd6a9848b53b110e712e20e42d89988822b7
         with:
