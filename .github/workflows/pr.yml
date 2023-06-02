@@ -724,6 +724,7 @@ jobs:
         run: |
           sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off
           sudo /usr/libexec/ApplicationFirewall/socketfilterfw -k
+          sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/bootpd
           sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblock /usr/libexec/bootpd
       - name: Install kubectl
         shell: bash
