@@ -24,6 +24,8 @@ import (
 	"runtime"
 	"strings"
 
+	guuid "github.com/google/uuid"
+	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -84,6 +86,17 @@ var RootCmd = &cobra.Command{
 		// $MINIKUBE_ROOTLESS is referred by KIC runner, which is decoupled from viper.
 		if viper.GetBool(config.Rootless) {
 			os.Setenv(constants.MinikubeRootlessEnv, "true")
+		}
+		uuidPath := localpath.MakeMiniPath("uuid")
+		if _, err := os.Stat(uuidPath); !errors.Is(err, os.ErrNotExist) {
+			return
+		}
+		newUUID, err := guuid.NewUUID()
+		if err != nil {
+			klog.Warningf("failed to generate UUID: %v", err)
+		}
+		if err := os.WriteFile(uuidPath, []byte(newUUID.String()), 0644); err != nil {
+			klog.Warningf("failed to write UUID: %v", err)
 		}
 	},
 	PersistentPostRun: func(_ *cobra.Command, _ []string) {

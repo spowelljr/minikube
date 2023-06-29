@@ -172,8 +172,15 @@ func getJSON(url string, target *Releases) error {
 	if err != nil {
 		return errors.Wrap(err, "error creating new http request")
 	}
-	ua := fmt.Sprintf("Minikube/%s Minikube-OS/%s Minikube-Arch/%s Minikube-Plaform/%s Minikube-Cloud/%s",
-		version.GetVersion(), runtime.GOOS, runtime.GOARCH, platform(), cloud())
+
+	uuid, err := os.ReadFile(localpath.MakeMiniPath("uuid"))
+	if err != nil {
+		klog.Warningf("failed to read UUID: %v", err)
+	}
+
+	ua := fmt.Sprintf("Minikube/%s Minikube-OS/%s Minikube-Arch/%s Minikube-Plaform/%s Minikube-Cloud/%s UUID/%s",
+		version.GetVersion(), runtime.GOOS, runtime.GOARCH, platform(), cloud(), string(uuid))
+	fmt.Println(ua)
 
 	req.Header.Set("User-Agent", ua)
 
