@@ -179,7 +179,7 @@
 	"Done! kubectl is now configured to use \"{{.name}}\"": "¡Listo! Se ha configurado kubectl para que use \"{{.name}}\"",
 	"Done! kubectl is now configured to use \"{{.name}}\" by default": "¡Listo! Se ha configurado kubectl para que use \"{{.name}}\" por defecto",
 	"Done! kubectl is now configured to use \"{{.name}}\" cluster and \"{{.ns}}\" namespace by default": "",
-	"Done! kubectl is now configured to use \"{{.name}}__1": "¡Listo! Se ha configurado kubectl para que use \"{{.name}}__1 \n",
+	"Done! kubectl is now configured to use \"{{.name}}__1": "¡Listo! Se ha configurado kubectl para que use \"{{.name}}__1",
 	"Done! minikube is ready without Kubernetes!": "",
 	"Download complete!": "Se ha completado la descarga",
 	"Downloading Kubernetes {{.version}} preload ...": "Descargando Kubernetes {{.version}} ...",

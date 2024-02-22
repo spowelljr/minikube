@@ -18,6 +18,7 @@ package translate
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -25,6 +26,12 @@ import (
 	"testing"
 
 	"golang.org/x/text/language"
+)
+
+var (
+	template = regexp.MustCompile(`{{\..+?}}`)
+	newline  = regexp.MustCompile(`\n`)
+	tab      = regexp.MustCompile(`\t`)
 )
 
 func TestT(t *testing.T) {
@@ -112,6 +119,10 @@ func TestTranslationFilesValid(t *testing.T) {
 				keyVariables := distinctVariables(k)
 				valueVariables := distinctVariables(v)
 
+				if err := checkSpecialCharacterCountsMatch(k, v); err != nil {
+					t.Error(err)
+				}
+
 				// check if number of original string and translated variables match
 				if len(keyVariables) != len(valueVariables) {
 					t.Errorf("line %q: %q has mismatching number of variables\noriginal string variables: %s; translated variables: %s", k, v, keyVariables, valueVariables)
@@ -132,10 +143,8 @@ func TestTranslationFilesValid(t *testing.T) {
 }
 
 func distinctVariables(line string) []string {
-	re := regexp.MustCompile(`{{\..+?}}`)
-
 	// get all the variables from the string (possible duplicates)
-	variables := re.FindAllString(line, -1)
+	variables := template.FindAllString(line, -1)
 	distinctMap := make(map[string]bool)
 
 	// add them to a map to get distinct list of variables
@@ -153,4 +162,18 @@ func distinctVariables(line string) []string {
 	sort.Strings(distinct)
 
 	return distinct
+}
+
+func checkSpecialCharacterCountsMatch(original, translated string) error {
+	origNewlines := len(newline.FindAllString(original, -1))
+	transNewlines := len(newline.FindAllString(translated, -1))
+	if origNewlines != transNewlines {
+		return fmt.Errorf("for string %q; original newlines: %d; translated newlines: %d", original, origNewlines, transNewlines)
+	}
+	origTabs := len(tab.FindAllString(original, -1))
+	transTabs := len(tab.FindAllString(translated, -1))
+	if origTabs != transTabs {
+		return fmt.Errorf("for string %q; original tabs: %d; translated tabs: %d", original, origTabs, transTabs)
+	}
+	return nil
 }
