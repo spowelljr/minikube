@@ -1,0 +1,20 @@
+name: vbox
+on:
+  workflow_dispatch:
+jobs:
+  thing:
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+        with:
+          go-version: 1.22.2
+      - run: |
+          df -h
+          sysctl hw
+          VBoxManage list vms
+          VBoxManage list hostinfo
+          VBoxManage list systemproperties
+          make
+          ./out/minikube start --memory=6000 --apiserver-port=8441 --wait=all --vm-driver=virtualbox --alsologtostderr
+          cat $HOME/.minikube/machines/minikube/minikube/Logs/VBox.log
