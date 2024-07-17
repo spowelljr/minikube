@@ -1,0 +1,33 @@
+iname: qemu
+on:
+  workflow_dispatch:
+jobs:
+  functional_qemu_macos-12:
+    runs-on: macos-12
+    steps:
+      - name: Checkout minikube
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
+        with:
+          go-version: 1.22.5
+      - name: unblock 1
+        run: |
+          sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/bootpd || true
+          sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblock /usr/libexec/bootpd || true
+      - name: Setup QEMU
+        shell: bash
+        run: |
+          brew install qemu
+          brew install socket_vmnet
+          brew tap homebrew/services
+          sudo /usr/local/bin/brew services start socket_vmnet
+      - name: unblock 2
+        run: |
+          sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/bootpd || true
+          sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblock /usr/libexec/bootpd || true
+      - name: Install minikube
+        run: |
+          make
+      - name: Start minikube
+        run: |
+          ./out/minikube start --driver qemu --network socket_vmnet --alsologtostderr
