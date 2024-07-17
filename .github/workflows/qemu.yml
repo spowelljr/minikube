@@ -1,4 +1,4 @@
-iname: qemu
+name: qemu
 on:
   workflow_dispatch:
 jobs:
