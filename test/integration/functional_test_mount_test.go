@@ -68,12 +68,16 @@ func validateMountCmd(ctx context.Context, t *testing.T, profile string) { // no
 		tempDir := t.TempDir()
 
 		ctx, cancel := context.WithTimeout(ctx, Minutes(10))
+		defer cancel()
 
 		args := []string{"mount", "-p", profile, fmt.Sprintf("%s:%s", tempDir, guestMount), "--alsologtostderr", "-v=1"}
-		ss, err := Start(t, exec.CommandContext(ctx, Target(), args...))
-		if err != nil {
-			t.Fatalf("%v failed: %v", args, err)
-		}
+
+		go func() {
+			rr, err := Run(t, exec.CommandContext(ctx, Target(), args...))
+			if err != nil {
+				t.Fatalf("%q: %v", rr.Command(), err)
+			}
+		}()
 
 		defer func() {
 			if t.Failed() {
@@ -91,7 +95,6 @@ func validateMountCmd(ctx context.Context, t *testing.T, profile string) { // no
 			if err != nil {
 				t.Logf("%q: %v", rr.Command(), err)
 			}
-			ss.Stop(t)
 			cancel()
 			if *cleanup {
 				os.RemoveAll(tempDir)
@@ -208,6 +211,7 @@ func validateMountCmd(ctx context.Context, t *testing.T, profile string) { // no
 		tempDir := t.TempDir()
 
 		ctx, cancel := context.WithTimeout(ctx, Minutes(10))
+		defer cancel()
 
 		args := []string{"mount", "-p", profile, fmt.Sprintf("%s:%s", tempDir, guestMount), "--alsologtostderr", "-v=1", "--port", "46464"}
 		ss, err := Start(t, exec.CommandContext(ctx, Target(), args...))
@@ -289,6 +293,7 @@ func validateMountCmd(ctx context.Context, t *testing.T, profile string) { // no
 		tempDir := t.TempDir()
 
 		ctx, cancel := context.WithTimeout(ctx, Minutes(10))
+		defer cancel()
 
 		guestMountPaths := []string{"/mount1", "/mount2", "/mount3"}
 
