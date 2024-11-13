@@ -18,4 +18,7 @@ jobs:
       - name: kvm-check
         run: |
           egrep -c '(vmx|svm)' /proc/cpuinfo
+          sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+          sudo adduser `id -un` libvirt
+          sudo adduser `id -un` kvm
           virsh list --all
