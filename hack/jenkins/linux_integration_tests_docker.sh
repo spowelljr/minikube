@@ -33,4 +33,4 @@ CONTAINER_RUNTIME="docker"
 
 make e2e-linux-amd64
 
-source ./common.sh
+source ./hack/jenkins/common.sh
