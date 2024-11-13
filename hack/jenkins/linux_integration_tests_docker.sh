@@ -31,7 +31,6 @@ DRIVER="docker"
 JOB_NAME="Docker_Linux"
 CONTAINER_RUNTIME="docker"
 
-# removing possible left over docker containers from previous runs
-docker rm -f -v $(docker ps -aq) >/dev/null 2>&1 || true
+make e2e-linux-amd64
 
 source ./common.sh
