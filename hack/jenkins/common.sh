@@ -35,6 +35,8 @@ readonly OS_ARCH="${OS}-${ARCH}"
 readonly TEST_OUT="testout.txt"
 readonly JSON_OUT="test.json"
 
+go install gotest.tools/gotestsum@v1.12.0
+
 echo ">> Starting at $(date)"
 echo ""
 echo "driver:    ${DRIVER}"
